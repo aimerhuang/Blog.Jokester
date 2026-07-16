@@ -27,13 +27,13 @@ type UserGroupDefinition struct {
 // AllSettings 是我们系统中所有配置项的"单一事实来源"
 var AllSettings = []Definition{
 	// --- 站点基础配置 ---
-	{Key: constant.KeyAppName, Value: "安和鱼", Comment: "应用名称", IsPublic: true},
+	{Key: constant.KeyAppName, Value: "Blog.Jokester", Comment: "应用名称", IsPublic: true},
 	{Key: constant.KeySubTitle, Value: "生活明朗，万物可爱", Comment: "应用副标题", IsPublic: true},
-	{Key: constant.KeySiteURL, Value: "https://anheyu.com", Comment: "应用URL", IsPublic: true},
+	{Key: constant.KeySiteURL, Value: "http://localhost:8091", Comment: "应用URL", IsPublic: true},
 	{Key: constant.KeyAppVersion, Value: "1.0.0", Comment: "应用版本", IsPublic: true},
 	{Key: constant.KeyApiURL, Value: "/", Comment: "API地址", IsPublic: true},
-	{Key: constant.KeyAboutLink, Value: "https://github.com/anzhiyu-c/anheyu-app", Comment: "关于链接", IsPublic: true},
-	{Key: constant.KeyIcpNumber, Value: "湘ICP备2023015794号-2", Comment: "ICP备案号", IsPublic: true},
+	{Key: constant.KeyAboutLink, Value: "", Comment: "关于链接", IsPublic: true},
+	{Key: constant.KeyIcpNumber, Value: "", Comment: "ICP备案号", IsPublic: true},
 	{Key: constant.KeyPoliceRecordNumber, Value: "", Comment: "公安联网备案号", IsPublic: true},
 	{Key: constant.KeyPoliceRecordIcon, Value: "https://www.beian.gov.cn/img/new/gongan.png", Comment: "公安联网备案号图标URL，显示在备案号前面", IsPublic: true},
 	{Key: constant.KeyUserAvatar, Value: "/static/img/avatar.jpg", Comment: "用户默认头像URL", IsPublic: true},
@@ -43,7 +43,7 @@ var AllSettings = []Definition{
 	{Key: constant.KeyLogoHorizontalDay, Value: "/static/img/logo-horizontal-day.png", Comment: "横向Logo (白天模式)", IsPublic: true},
 	{Key: constant.KeyLogoHorizontalNight, Value: "/static/img/logo-horizontal-night.png", Comment: "横向Logo (暗色模式)", IsPublic: true},
 	{Key: constant.KeyIconURL, Value: "/favicon.ico", Comment: "Icon图标URL", IsPublic: true},
-	{Key: constant.KeySiteKeywords, Value: "安和鱼,博客,blog,搭建博客,服务器,搭建网站,建站,相册,图片管理", Comment: "站点关键词", IsPublic: true},
+	{Key: constant.KeySiteKeywords, Value: "Blog.Jokester,博客,blog", Comment: "站点关键词", IsPublic: true},
 	{Key: constant.KeySiteDescription, Value: "新一代博客，就这么搭，Vue渲染颜值，Go守护性能，SSR打破加载瓶颈。", Comment: "站点描述", IsPublic: true},
 	{Key: constant.KeyAppearanceSkin, Value: "brand_blue", Comment: "前台换肤预设 ID（内置方案，如 brand_blue、emerald）", IsPublic: true},
 	{Key: constant.KeyAppearanceTokens, Value: "{}", Comment: "前台颜色令牌 JSON 覆盖：{\"light\":{...},\"dark\":{...}}，字段含 primary、primaryForeground、success、warning、danger、info、accent", IsPublic: true},
@@ -122,9 +122,9 @@ var AllSettings = []Definition{
 	{Key: constant.KeyTypingSpeed, Value: "100", Comment: "打字机效果速度（毫秒/字符）", IsPublic: true},
 
 	// --- FrontDesk 配置 ---
-	{Key: constant.KeyFrontDeskSiteOwnerName, Value: "安知鱼", Comment: "前台网站拥有者名", IsPublic: true},
+	{Key: constant.KeyFrontDeskSiteOwnerName, Value: "Blog.Jokester", Comment: "前台网站拥有者名", IsPublic: true},
 	{Key: constant.KeyFrontDeskSiteOwnerEmail, Value: "anzhiyu-c@qq.com", Comment: "前台网站拥有者邮箱", IsPublic: true},
-	{Key: constant.KeyFooterOwnerName, Value: "安知鱼", Comment: "页脚版权所有者名", IsPublic: true},
+	{Key: constant.KeyFooterOwnerName, Value: "Blog.Jokester", Comment: "页脚版权所有者名", IsPublic: true},
 	{Key: constant.KeyFooterOwnerSince, Value: "2020", Comment: "页脚版权起始年份", IsPublic: true},
 	{Key: constant.KeyFooterCustomText, Value: "", Comment: "页脚自定义文本", IsPublic: true},
 	{Key: constant.KeyFooterRuntimeEnable, Value: "false", Comment: "页脚网站运行时间模块是否启用", IsPublic: true},
@@ -411,7 +411,7 @@ var AllSettings = []Definition{
 	{Key: constant.KeySmtpPort, Value: "587", Comment: "SMTP 服务器端口 (587 for STARTTLS, 465 for SSL)", IsPublic: false},
 	{Key: constant.KeySmtpUsername, Value: "user@example.com", Comment: "SMTP 登录用户名", IsPublic: false},
 	{Key: constant.KeySmtpPassword, Value: "", Comment: "SMTP 登录密码", IsPublic: false},
-	{Key: constant.KeySmtpSenderName, Value: "安和鱼", Comment: "邮件发送人名称", IsPublic: false},
+	{Key: constant.KeySmtpSenderName, Value: "Blog.Jokester", Comment: "邮件发送人名称", IsPublic: false},
 	{Key: constant.KeySmtpSenderEmail, Value: "user@example.com", Comment: "邮件发送人邮箱地址", IsPublic: false},
 	{Key: constant.KeySmtpReplyToEmail, Value: "", Comment: "回信邮箱地址", IsPublic: false},
 	{Key: constant.KeySmtpForceSSL, Value: "false", Comment: "是否强制使用 SSL (设为true通常配合465端口)", IsPublic: false},

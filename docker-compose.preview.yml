@@ -1,0 +1,15 @@
+# Local macOS preview override. It avoids Docker Desktop host-path sharing
+# requirements by storing mutable application data in named Docker volumes.
+services:
+  blog-jokester:
+    volumes: !reset
+      - blog_jokester_data:/anheyu/data
+      - blog_jokester_themes:/anheyu/themes
+      - blog_jokester_static:/anheyu/static
+      - blog_jokester_backup:/anheyu/backup
+
+volumes:
+  blog_jokester_data:
+  blog_jokester_themes:
+  blog_jokester_static:
+  blog_jokester_backup:

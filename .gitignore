@@ -9,6 +9,10 @@ anheyu-app
 anheyu-app.exe
 anheyu-app-linux-arm64
 anheyu-app-linux-amd64
+blog-jokester
+blog-jokester.exe
+blog-jokester-linux-arm64
+blog-jokester-linux-amd64
 .env
 temp
 /data/storage

@@ -9,8 +9,8 @@ ARG COMMIT=unknown
 ARG BUILD_DATE=unknown
 ARG TARGETARCH
 
-LABEL org.opencontainers.image.title="Anheyu App" \
-      org.opencontainers.image.description="Anheyu App - Self-hosted blog and content management system" \
+LABEL org.opencontainers.image.title="Blog.Jokester" \
+      org.opencontainers.image.description="Blog.Jokester - Self-hosted blog and content management system" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.revision="${COMMIT}" \
       org.opencontainers.image.created="${BUILD_DATE}" \
@@ -34,11 +34,11 @@ ARG TARGETPLATFORM
 RUN addgroup --system --gid 1001 anheyu && \
     adduser --system --uid 1001 anheyu
 
-COPY anheyu-app ./anheyu-app
+COPY blog-jokester ./blog-jokester
 COPY default_files ./default-data
 COPY entrypoint.sh ./entrypoint.sh
 
-RUN chmod +x ./anheyu-app \
+RUN chmod +x ./blog-jokester \
     && chmod +x ./entrypoint.sh \
     && chown -R anheyu:anheyu /anheyu
 
@@ -55,7 +55,7 @@ COPY frontend/public ./frontend/public
 EXPOSE 8091 3000
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["./anheyu-app"]
+CMD ["./blog-jokester"]
 
 # ==================================================================
 # Target: api-only - Go backend only (frontend runs separately)
@@ -66,7 +66,7 @@ FROM backend-base AS api-only
 EXPOSE 8091 443
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["./anheyu-app"]
+CMD ["./blog-jokester"]
 
 # ==================================================================
 # Target: frontend - Next.js frontend only (standalone deployment)

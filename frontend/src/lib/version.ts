@@ -55,7 +55,7 @@ export async function getVersionInfo(forceRefresh = false): Promise<VersionInfo>
       const result = await res.json();
       if (result.code === 200 && result.data) {
         const info: VersionInfo = {
-          name: "anheyu-app",
+          name: "blog-jokester",
           version: result.data.version?.replace(/^v/, "") || "未知版本",
           commit: result.data.commit,
           date: result.data.date,
@@ -69,7 +69,7 @@ export async function getVersionInfo(forceRefresh = false): Promise<VersionInfo>
     /* ignore */
   }
 
-  return { name: "anheyu-app", version: "未知版本" };
+  return { name: "blog-jokester", version: "未知版本" };
 }
 
 export async function isProEdition(): Promise<boolean> {

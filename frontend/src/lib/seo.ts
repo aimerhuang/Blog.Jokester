@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { SiteConfigData } from "@/types/site-config";
 
-const DEFAULT_SITE_NAME = "AnHeYu";
+const DEFAULT_SITE_NAME = "Blog.Jokester";
 const DEFAULT_SITE_DESCRIPTION = "生活明朗，万物可爱";
 const DEFAULT_ICON_URL = "/favicon.ico";
 const DEFAULT_LOGO_URL = "/static/img/logo-192x192.png";

@@ -177,7 +177,7 @@ export const useSiteConfigStore = create<SiteConfigState>((set, get) => ({
   // Getters
   getSiteConfig: () => get().siteConfig,
 
-  getTitle: () => get().siteConfig.APP_NAME || "AnHeYu",
+  getTitle: () => get().siteConfig.APP_NAME || "Blog.Jokester",
 
   getLogo: () => get().siteConfig.LOGO_URL_192x192 || "/logo.svg",
 

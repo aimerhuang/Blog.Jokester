@@ -1,4 +1,4 @@
-# Makefile for Anheyu App
+# Makefile for Blog.Jokester
 
 # 版本信息
 VERSION ?= $(shell git describe --tags --always --dirty)
@@ -13,20 +13,20 @@ LDFLAGS = -X 'github.com/anzhiyu-c/anheyu-app/internal/pkg/version.Version=$(VER
 # 默认目标
 .PHONY: build
 build:
-	@echo "Building anheyu-app with version $(VERSION)"
-	go build -ldflags "$(LDFLAGS)" -o anheyu-app
+	@echo "Building blog-jokester with version $(VERSION)"
+	go build -ldflags "$(LDFLAGS)" -o blog-jokester
 
 # Linux AMD64 构建
 .PHONY: build-linux-amd64
 build-linux-amd64:
-	@echo "Building anheyu-app-linux-amd64 with version $(VERSION)"
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o anheyu-app-linux-amd64
+	@echo "Building blog-jokester-linux-amd64 with version $(VERSION)"
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o blog-jokester-linux-amd64
 
 # Linux ARM64 构建
 .PHONY: build-linux-arm64
 build-linux-arm64:
-	@echo "Building anheyu-app-linux-arm64 with version $(VERSION)"
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o anheyu-app-linux-arm64
+	@echo "Building blog-jokester-linux-arm64 with version $(VERSION)"
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o blog-jokester-linux-arm64
 
 # 构建所有平台
 .PHONY: build-all
@@ -36,7 +36,7 @@ build-all: build build-linux-amd64 build-linux-arm64
 .PHONY: clean
 clean:
 	@echo "Cleaning build artifacts"
-	rm -f anheyu-app anheyu-app-linux-amd64 anheyu-app-linux-arm64
+	rm -f blog-jokester blog-jokester-linux-amd64 blog-jokester-linux-arm64
 
 # 显示版本信息
 .PHONY: version
@@ -64,7 +64,7 @@ vet:
 .PHONY: docker
 docker: build-linux-amd64
 	@echo "Building Docker image"
-	docker build -t anheyu/anheyu-backend:latest .
+	docker build -t blog-jokester/backend:latest .
 
 # 开发环境快速启动（原有方式，保持兼容）
 .PHONY: dev
@@ -84,7 +84,7 @@ dev-docker:
 	@echo "📦 Stopping existing services..."
 	docker compose $(COMPOSE_DEV) down
 	@echo "🔨 Building ARM64 binary..."
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o anheyu-app
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o blog-jokester
 	@echo "🐳 Starting containers (no image rebuild)..."
 	@docker compose $(COMPOSE_DEV) up -d --no-build || \
 		(echo "📦 First run or image missing, building image once..."; \
@@ -92,14 +92,14 @@ dev-docker:
 	@echo "✅ Development environment ready!"
 	@echo "🌐 Application: http://localhost:8091"
 	@echo "📊 Version API: http://localhost:8091/api/version"
-	@echo "📝 View logs: docker logs anheyu-backend -f"
+	@echo "📝 View logs: docker logs blog-jokester -f"
 
 # 完整重建镜像（Dockerfile 或依赖变更后使用）
 .PHONY: dev-docker-build
 dev-docker-build:
 	@echo "🔨 Full rebuild (image + binary)..."
 	docker compose down
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o anheyu-app
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o blog-jokester
 	docker compose up -d --build
 	@echo "✅ Done. Next time use 'make dev-docker' for fast start."
 
@@ -108,7 +108,7 @@ dev-docker-build:
 dev-docker-full: frontend-build
 	@echo "🔨 Full rebuild (frontend + image + binary)..."
 	docker compose down
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o anheyu-app
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o blog-jokester
 	docker compose up -d --build
 	@echo "✅ Done. New routes (e.g. /user-center) are now available at http://localhost:8091"
 

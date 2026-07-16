@@ -1,3 +1,7 @@
+# Blog.Jokester
+
+基于 [anzhiyu-c/anheyu-app](https://github.com/anzhiyu-c/anheyu-app) 的内容管理与分享平台。生产上线请阅读 [部署手册](DEPLOYMENT.zh-CN.md)，配置项说明见 [配置说明](CONFIGURATION.zh-CN.md)。上游项目的许可证与版权声明继续适用。
+
 <p align="center">
   <a href="https://github.com/anzhiyu-c/anheyu-app" target="_blank" title="访问项目仓库">
     <img src="https://upload-bbs.miyoushe.com/upload/2025/08/27/125766904/445bc304fe1a5edf8c0250beac0731b5_953439680145318785.png" height="400" width="600" alt="Logo" />
@@ -34,18 +38,7 @@ GitHub: https://github.com/anzhiyu-c/anheyu-app
 
 ### 从源码克隆（开发者）
 
-Next.js 前台位于仓库内 **`frontend` Git 子模块**，克隆时必须递归拉取子模块，否则 `frontend` 目录为空：
-
-```bash
-git clone --recurse-submodules https://github.com/anzhiyu-c/anheyu-app.git
-cd anheyu-app
-```
-
-若此前已克隆、未包含子模块，在仓库根目录执行：
-
-```bash
-git submodule update --init --recursive
-```
+Next.js 前台位于仓库内 `frontend` 目录，并已作为普通源码纳入当前仓库。正常克隆即可，无需初始化 Git 子模块。生产构建和上线步骤见 [部署手册](DEPLOYMENT.zh-CN.md)。
 
 ## 🚀 快速开始
 
@@ -153,6 +146,23 @@ git submodule update --init --recursive
 ## 🏗️ 技术架构
 
 Go + Next.js（React）+ Ent
+
+### 开源框架与核心依赖
+
+本项目基于以下开源框架和库构建：
+
+- **Go**：后端服务语言
+- **Gin**：HTTP/Web API 框架
+- **Ent**：类型安全的 Go ORM 与数据模型工具
+- **Next.js**：React 全栈 Web 框架（App Router、SSR）
+- **React**：前端 UI 组件基础
+- **TypeScript**：前端类型系统
+- **Tailwind CSS**：前端样式工具框架
+- **Tiptap**：Markdown/富文本编辑器框架
+- **TanStack Query**：前端服务端状态管理
+- **Docker / Docker Compose**：应用容器化与部署工具
+
+具体版本和完整依赖列表分别见 [`go.mod`](go.mod) 与 [`frontend/package.json`](frontend/package.json)。
 
 ### 为什么选择这些技术？
 

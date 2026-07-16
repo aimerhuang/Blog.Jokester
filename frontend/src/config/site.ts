@@ -1,16 +1,16 @@
 export const siteConfig = {
-  name: "AnHeYu",
-  description: "基于 Next.js 和 HeroUI 构建的现代化博客主题",
+  name: "Blog.Jokester",
+  description: "Blog.Jokester 内容站点",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   author: {
-    name: "安知鱼",
-    url: "https://anheyu.com",
-    github: "https://github.com/anzhiyu-c",
-    email: "contact@anheyu.com",
+    name: "Blog.Jokester",
+    url: "http://localhost:8091",
+    github: "",
+    email: "",
   },
   links: {
-    github: "https://github.com/anzhiyu-c",
-    docs: "https://docs.anheyu.com",
+    github: "",
+    docs: "",
   },
 };
 

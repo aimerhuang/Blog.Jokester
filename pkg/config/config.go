@@ -134,7 +134,7 @@ Debug = false
 
 [Database]
 Type = sqlite
-Name = anheyu_app.db
+Name = blog_jokester.db
 Debug = false
 
 # Redis 配置（可选）
