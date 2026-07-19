@@ -59,6 +59,11 @@ describe("buildPageMetadata homepage title", () => {
 });
 
 describe("resolveSeoSiteInfo favicon URL", () => {
+  it("uses the bundled Jokester icon by default", () => {
+    expect(resolveSeoSiteInfo().iconUrl).toBe("/favicon.svg");
+    expect(resolveSeoSiteInfo({ ICON_URL: "/favicon.ico" }).iconUrl).toBe("/favicon.svg");
+  });
+
   it("uses SITE_DESCRIPTION before SUB_TITLE for SEO descriptions", () => {
     const site = resolveSeoSiteInfo({
       APP_NAME: "安和鱼",

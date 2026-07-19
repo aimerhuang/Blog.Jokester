@@ -47,7 +47,7 @@ function createMetadata(config: {
   logoUrl?: string;
   siteUrl?: string;
 }): Metadata {
-  const iconUrl = config.iconUrl || "/favicon.ico";
+  const iconUrl = config.iconUrl || "/favicon.svg";
   const logoUrl = config.logoUrl || "/static/img/logo-192x192.png";
   const iconType = getFaviconContentType(iconUrl);
   const metadataBase = resolveMetadataBase(config.siteUrl);

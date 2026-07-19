@@ -3,7 +3,7 @@ import type { SiteConfigData } from "@/types/site-config";
 
 const DEFAULT_SITE_NAME = "Blog.Jokester";
 const DEFAULT_SITE_DESCRIPTION = "生活明朗，万物可爱";
-const DEFAULT_ICON_URL = "/favicon.ico";
+const DEFAULT_ICON_URL = "/favicon.svg";
 const DEFAULT_LOGO_URL = "/static/img/logo-192x192.png";
 const DEV_SITE_URL = "http://localhost:3000";
 const FAVICON_CACHE_PARAM = "v";
@@ -86,6 +86,7 @@ function getFaviconVersion(pathname: string): string | undefined {
 function normalizeFaviconUrl(rawUrl?: string): string {
   const value = rawUrl?.trim();
   if (!value) return DEFAULT_ICON_URL;
+  if (value === "/favicon.ico") return DEFAULT_ICON_URL;
   if (value === DEFAULT_ICON_URL || /^(data|blob):/i.test(value)) return value;
 
   try {

@@ -42,7 +42,7 @@ var AllSettings = []Definition{
 	{Key: constant.KeyLogoURL512, Value: "/static/img/logo-512x512.png", Comment: "Logo图片URL (512x512)", IsPublic: true},
 	{Key: constant.KeyLogoHorizontalDay, Value: "/static/img/logo-horizontal-day.png", Comment: "横向Logo (白天模式)", IsPublic: true},
 	{Key: constant.KeyLogoHorizontalNight, Value: "/static/img/logo-horizontal-night.png", Comment: "横向Logo (暗色模式)", IsPublic: true},
-	{Key: constant.KeyIconURL, Value: "/favicon.ico", Comment: "Icon图标URL", IsPublic: true},
+	{Key: constant.KeyIconURL, Value: "/favicon.svg", Comment: "Icon图标URL", IsPublic: true},
 	{Key: constant.KeySiteKeywords, Value: "Blog.Jokester,博客,blog", Comment: "站点关键词", IsPublic: true},
 	{Key: constant.KeySiteDescription, Value: "新一代博客，就这么搭，Vue渲染颜值，Go守护性能，SSR打破加载瓶颈。", Comment: "站点描述", IsPublic: true},
 	{Key: constant.KeyAppearanceSkin, Value: "brand_blue", Comment: "前台换肤预设 ID（内置方案，如 brand_blue、emerald）", IsPublic: true},
