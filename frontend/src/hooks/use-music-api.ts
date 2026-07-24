@@ -7,19 +7,8 @@
  */
 import { useState, useCallback, useRef } from "react";
 import type { Song, PlaylistCache } from "@/types/music";
-import { getPlaylistApi } from "@/lib/api/music";
+import { getPlaylistApi, getSongResourcesApi } from "@/lib/api/music";
 import { useSiteConfigStore } from "@/store/site-config-store";
-
-/**
- * 确保URL使用HTTPS协议
- */
-const ensureHttps = (url: string): string => {
-  if (!url) return url;
-  if (url.startsWith("http://")) {
-    return url.replace("http://", "https://");
-  }
-  return url;
-};
 
 // 缓存配置
 const CACHE_KEY = "anheyu-playlist-cache";
@@ -62,13 +51,6 @@ export function useMusicAPI() {
   const siteConfig = useSiteConfigStore(state => state.siteConfig);
   const siteConfigRef = useRef(siteConfig);
   siteConfigRef.current = siteConfig;
-
-  // 从配置获取音乐API基础地址
-  const getMusicAPIBaseURL = useCallback((): string => {
-    const config = siteConfigRef.current;
-    const apiBaseURL = getConfigString(config, ["frontDesk.home.music.api.base_url", "music.api.base_url"]);
-    return apiBaseURL || "https://metings.qjqq.cn";
-  }, []);
 
   // 从配置获取当前播放列表ID
   const getCurrentPlaylistId = useCallback((): string => {
@@ -374,60 +356,7 @@ export function useMusicAPI() {
     [getCapsulePlaylistCache, getCapsuleCustomPlaylistUrl, fetchPlaylistFromJson, setCapsulePlaylistCache]
   );
 
-  // 直接调用 Song_V1 API 获取单曲资源
-  const fetchSongV1 = useCallback(
-    async (
-      songId: string,
-      level: "exhigh" | "standard"
-    ): Promise<{
-      url: string;
-      lyric: string;
-      level: string;
-      size: string;
-      error?: "server_error" | "not_found";
-    } | null> => {
-      try {
-        const formData = new URLSearchParams();
-        formData.append("url", songId);
-        formData.append("level", level);
-        formData.append("type", "json");
-
-        const apiBaseURL = getMusicAPIBaseURL();
-        const response = await fetch(`${apiBaseURL}/Song_V1`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: formData,
-        });
-
-        if (!response.ok) {
-          if (response.status >= 500) {
-            return { url: "", lyric: "", level: "", size: "", error: "server_error" };
-          }
-          return { url: "", lyric: "", level: "", size: "", error: "not_found" };
-        }
-
-        const data = await response.json();
-
-        if (data.status !== 200 || !data.success) {
-          return { url: "", lyric: "", level: "", size: "", error: "not_found" };
-        }
-
-        return {
-          url: ensureHttps(data.data.url || ""),
-          lyric: data.data.lyric || "",
-          level: data.data.level,
-          size: data.data.size,
-        };
-      } catch {
-        return { url: "", lyric: "", level: "", size: "", error: "server_error" };
-      }
-    },
-    [getMusicAPIBaseURL]
-  );
-
-  // 获取歌曲的音频和歌词资源（带音质自动降级）
+  // 获取歌曲的音频和歌词资源。第三方 API 由后端代理，避免浏览器跨域失败。
   const fetchSongResources = useCallback(
     async (
       song: Song
@@ -456,33 +385,10 @@ export function useMusicAPI() {
       }
 
       try {
-        // 尝试 exhigh 音质
-        let result = await fetchSongV1(song.neteaseId, "exhigh");
+        const response = await getSongResourcesApi(song.neteaseId);
+        const resources = response.data;
 
-        if (result?.error === "server_error") {
-          return {
-            audioUrl: song.url || "",
-            lyricsText,
-            errorType: "server",
-            errorMessage: "音乐服务暂时不可用",
-          };
-        }
-
-        // 如果资源不存在，降级到 standard
-        if (!result || !result.url) {
-          result = await fetchSongV1(song.neteaseId, "standard");
-
-          if (result?.error === "server_error") {
-            return {
-              audioUrl: song.url || "",
-              lyricsText,
-              errorType: "server",
-              errorMessage: "音乐服务暂时不可用",
-            };
-          }
-        }
-
-        if (!result || !result.url) {
+        if (!resources?.audioUrl) {
           return {
             audioUrl: song.url || "",
             lyricsText,
@@ -491,11 +397,11 @@ export function useMusicAPI() {
           };
         }
 
-        // 优先使用已有歌词，其次使用 Song_V1 返回歌词（可能为空）
-        const finalLyricsText = lyricsText || (result.lyric ? await fetchLyricContent(result.lyric, songName) : "");
+        // 优先使用已有歌词，其次使用后端返回的歌词（可能为空）。
+        const finalLyricsText = lyricsText || resources.lyricsText || "";
 
         return {
-          audioUrl: result.url,
+          audioUrl: resources.audioUrl,
           lyricsText: finalLyricsText,
         };
       } catch (error) {
@@ -522,7 +428,7 @@ export function useMusicAPI() {
         };
       }
     },
-    [fetchSongV1, fetchLyricContent]
+    [fetchLyricContent]
   );
 
   return {
