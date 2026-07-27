@@ -2,6 +2,25 @@
 
 基于 [anzhiyu-c/anheyu-app](https://github.com/anzhiyu-c/anheyu-app) 的内容管理与分享平台。生产上线请阅读 [部署手册](DEPLOYMENT.zh-CN.md)，配置项说明见 [配置说明](CONFIGURATION.zh-CN.md)。上游项目的许可证与版权声明继续适用。
 
+## 音乐馆配置与故障排查
+
+音乐馆的“API 地址”填写音乐解析服务的基础地址，而不是网易云歌单网页地址。例如：
+
+```text
+API 地址：https://metings.qjqq.cn
+歌单 ID：7521699817
+```
+
+后端会据此请求 `https://metings.qjqq.cn/Playlist?id=7521699817`。若填写 `https://music.163.com/#/playlist?id=...`，后端会拼接出无效地址，音乐馆无法加载列表。
+
+音乐解析服务在后端启动时读取 API 地址。修改该配置后，请重启后端服务再刷新页面；Windows NSSM 服务示例：
+
+```powershell
+Restart-Service -Name blog-jokester
+```
+
+可通过 `GET /api/public/music/playlist` 验证：正常时应返回 `code: 200` 和 `data.songs`。
+
 <p align="center">
   <a href="https://github.com/anzhiyu-c/anheyu-app" target="_blank" title="访问项目仓库">
     <img src="https://upload-bbs.miyoushe.com/upload/2025/08/27/125766904/445bc304fe1a5edf8c0250beac0731b5_953439680145318785.png" height="400" width="600" alt="Logo" />
